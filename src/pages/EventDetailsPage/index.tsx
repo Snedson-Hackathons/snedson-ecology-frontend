@@ -3,6 +3,7 @@ import { EventModel } from '../../services/EventsAPI/models';
 import './styles.scss';
 import { useParams } from 'react-router-dom';
 import { EventsController } from '../../controllers/EventsController';
+import Button from '../../components/Button';
 
 const EventDetailsPage = () => {
     const { id } = useParams();
@@ -36,7 +37,7 @@ const EventDetailsPage = () => {
                         <pre>{event.description}</pre>
                     </p>
                     <div className='needs event-details__item'>
-                        <h2 className='event-details__item-title'>Нужды</h2>
+                        <h2 className='event-details__item-title'>Нужды:</h2>
                         <ul className='needs-list'>
                             {event.needs.map((value) => {
                                 return (
@@ -49,6 +50,27 @@ const EventDetailsPage = () => {
                                 );
                             })}
                         </ul>
+                    </div>
+                    <div className='event-details__item'>
+                        <h2 className='event-details__item-title'>Место:</h2>
+                        <p>ул. Розы Люксембург 56а</p>
+                    </div>
+                    <div className='event-details__item'>
+                        <h2 className='event-details__item-title'>
+                            Дата и время:
+                        </h2>
+                        <p>{new Date(event.scheduled_date).toLocaleString()}</p>
+                    </div>
+                    <div className='needs event-details__item'>
+                        <h2 className='event-details__item-title'>
+                            Предполагаемый результат:
+                        </h2>
+                        <p>
+                            <pre>{event.expected_result}</pre>
+                        </p>
+                    </div>
+                    <div className='event-details__item'>
+                        <Button>Участвовать</Button>
                     </div>
                 </div>
             )}
