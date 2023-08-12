@@ -1,0 +1,11 @@
+.main-layout-nav {
+    width: 160px;
+}
+
+.main-layout-nav-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    list-style: none;
+}

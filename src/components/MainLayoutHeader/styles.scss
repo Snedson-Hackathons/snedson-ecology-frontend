@@ -1,0 +1,23 @@
+@import '../../vars';
+
+.main-layout-header {
+    position: fixed;
+
+    display: flex;
+    background: $stress-color;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+
+    height: 60px;
+    width: 100%;
+    z-index: 3000;
+
+    &__content {
+        display: flex;
+        align-items: center;
+
+        max-width: 880px;
+        width: 100%;
+    }
+}

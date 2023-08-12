@@ -1,0 +1,19 @@
+@import '../../vars';
+
+.custom-button {
+    display: flex;
+    height: 33px;
+    min-width: 140px;
+    padding: 2px 15px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    color: $on-stress-color;
+    outline: none;
+    border: none;
+
+    cursor: pointer;
+
+    border-radius: $border-radius-default;
+    background: $stress-color;
+}

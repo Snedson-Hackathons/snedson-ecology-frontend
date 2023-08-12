@@ -1,0 +1,13 @@
+.main-layout {
+    &__content {
+        position: relative;
+        padding-top: 76px;
+        max-width: 520px;
+        margin: auto;
+    }
+
+    &__nav-cont {
+        position: absolute;
+        right: calc(100% + 20px);
+    }
+}
