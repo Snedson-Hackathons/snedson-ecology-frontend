@@ -3,9 +3,13 @@ import './styles.scss';
 import { EventModel } from '../../services/EventsAPI/models';
 import { EventsController } from '../../controllers/EventsController';
 import EventItem from '../../components/EventItem';
+import Button from '../../components/Button';
+import { useNavigate } from 'react-router-dom';
 
 const EventPage = () => {
     const [events, setEvents] = useState<EventModel[]>([]);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         EventsController.getEvents().then((value) => {
@@ -16,6 +20,15 @@ const EventPage = () => {
     }, []);
     return (
         <div className='event-page'>
+            <div className='event-page__actions'>
+                <Button
+                    onClick={() => {
+                        navigate('/events/create');
+                    }}
+                >
+                    Создать событие
+                </Button>
+            </div>
             <ul className='events'>
                 {events.map((event) => {
                     return (

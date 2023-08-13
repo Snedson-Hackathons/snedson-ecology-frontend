@@ -5,3 +5,8 @@
 
     list-style: none;
 }
+
+.event-page__actions {
+    position: absolute;
+    left: calc(100% + 20px);
+}

@@ -18,3 +18,15 @@ export type Need = {
     title: string;
     is_checked: boolean;
 };
+
+export type CreateEventRequestModel = {
+    title: string;
+    description: string;
+    scheduled_date: number;
+    expected_result: string;
+    needs: Omit<Need, 'id'>[];
+};
+
+export type CreateEventResponseModel = {
+    created_event_id: string;
+};

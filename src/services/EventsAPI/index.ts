@@ -1,5 +1,9 @@
 import api from '../api';
-import { EventModel } from './models';
+import {
+    CreateEventRequestModel,
+    CreateEventResponseModel,
+    EventModel,
+} from './models';
 import { GetEventsQueryParams } from './types';
 
 export class EventsAPI {
@@ -9,5 +13,9 @@ export class EventsAPI {
 
     public static getEventById(id: string) {
         return api.get<EventModel>(`/events/${id}`);
+    }
+
+    public static createEvent(model: CreateEventRequestModel) {
+        return api.post<CreateEventResponseModel>(`/events`, model);
     }
 }
