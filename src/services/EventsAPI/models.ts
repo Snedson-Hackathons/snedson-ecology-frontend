@@ -25,6 +25,8 @@ export type CreateEventRequestModel = {
     scheduled_date: number;
     expected_result: string;
     needs: Omit<Need, 'id'>[];
+    location_lat: string;
+    location_lon: string;
 };
 
 export type CreateEventResponseModel = {

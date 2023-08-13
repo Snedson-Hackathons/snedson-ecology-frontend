@@ -4,6 +4,7 @@ import './styles.scss';
 import { CreateEventRequestModel, Need } from '../../services/EventsAPI/models';
 import { EventsController } from '../../controllers/EventsController';
 import { useNavigate } from 'react-router-dom';
+import { YMaps, Map, Placemark, SearchControl } from '@pbe/react-yandex-maps';
 
 const EventCreatePage = () => {
     const [description, setDescription] = useState<string>('');
@@ -12,6 +13,12 @@ const EventCreatePage = () => {
     const [scheduled_date, setScheduledDate] = useState<number>(0);
     const [needs, setNeeds] = useState<Omit<Need, 'id'>[]>([]);
     const [needEditor, setNeedEditor] = useState<string>('');
+
+    const [coords, setCoords] = useState<[number, number]>([
+        56.838011, 60.597474,
+    ]);
+
+    const [zoom, setZoom] = useState<number>(10);
 
     const navigate = useNavigate();
 
@@ -25,8 +32,10 @@ const EventCreatePage = () => {
             expected_result,
             scheduled_date,
             needs,
+            location_lat: coords[0].toString(),
+            location_lon: coords[1].toString(),
         });
-    }, [description, title, expected_result, scheduled_date, needs]);
+    }, [description, title, expected_result, scheduled_date, needs, coords]);
     return (
         <div className='event-create-page'>
             <form
@@ -100,9 +109,29 @@ const EventCreatePage = () => {
                         })}
                     </ul>
                 </div>
-                <div className='event-details__item'>
+                <div className='needs event-details__item'>
                     <h2 className='event-details__item-title'>Место:</h2>
-                    <p>ул. Розы Люксембург 56а</p>
+                    <YMaps
+                        query={{
+                            apikey: '595c5bb8-2e50-4f33-a6a2-64c1cee73869',
+                        }}
+                    >
+                        <Map
+                            onClick={(e: any) => {
+                                setCoords(e.get('coords'));
+                                setZoom(16);
+                            }}
+                            width='100%'
+                            defaultState={{
+                                center: coords,
+                                zoom: 10,
+                            }}
+                            state={{ center: coords, zoom: zoom }}
+                        >
+                            <Placemark geometry={coords}></Placemark>
+                            <SearchControl />
+                        </Map>
+                    </YMaps>
                 </div>
                 <div className='event-details__item'>
                     <h2 className='event-details__item-title'>Дата и время:</h2>

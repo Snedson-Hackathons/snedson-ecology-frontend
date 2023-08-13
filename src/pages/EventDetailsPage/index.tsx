@@ -4,7 +4,7 @@ import './styles.scss';
 import { useParams } from 'react-router-dom';
 import { EventsController } from '../../controllers/EventsController';
 import Button from '../../components/Button';
-import { YMaps, Map, Placemark } from '@pbe/react-yandex-maps';
+import { YMaps, Map, Placemark, SearchControl } from '@pbe/react-yandex-maps';
 import api from '../../services/api';
 import { GeoCoderResponse } from './types';
 
@@ -67,25 +67,32 @@ const EventDetailsPage = () => {
                             })}
                         </ul>
                     </div>
-                    <YMaps>
-                        <Map
-                            defaultState={{
-                                center: [
-                                    event.location_lat,
-                                    event.location_lon,
-                                ],
-                                zoom: 16,
-                                type: 'yandex#map',
+                    <div className='event-details__item'>
+                        <YMaps
+                            query={{
+                                apikey: '595c5bb8-2e50-4f33-a6a2-64c1cee73869',
                             }}
                         >
-                            <Placemark
-                                geometry={[
-                                    event.location_lat,
-                                    event.location_lon,
-                                ]}
-                            />
-                        </Map>
-                    </YMaps>
+                            <Map
+                                width='100%'
+                                defaultState={{
+                                    center: [
+                                        event.location_lat,
+                                        event.location_lon,
+                                    ],
+                                    zoom: 16,
+                                    type: 'yandex#map',
+                                }}
+                            >
+                                <Placemark
+                                    geometry={[
+                                        event.location_lat,
+                                        event.location_lon,
+                                    ]}
+                                />
+                            </Map>
+                        </YMaps>
+                    </div>
                     <div className='event-details__item'>
                         <h2 className='event-details__item-title'>Место:</h2>
                         <p>{location}</p>
