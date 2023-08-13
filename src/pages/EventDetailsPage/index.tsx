@@ -4,11 +4,15 @@ import './styles.scss';
 import { useParams } from 'react-router-dom';
 import { EventsController } from '../../controllers/EventsController';
 import Button from '../../components/Button';
+import { YMaps, Map, Placemark } from '@pbe/react-yandex-maps';
+import api from '../../services/api';
+import { GeoCoderResponse } from './types';
 
 const EventDetailsPage = () => {
     const { id } = useParams();
 
     const [event, setEvent] = useState<EventModel | null>(null);
+    const [location, setLocation] = useState<string>('Уточняется...');
 
     useEffect(() => {
         if (id) {
@@ -17,6 +21,18 @@ const EventDetailsPage = () => {
             });
         }
     }, [id]);
+
+    useEffect(() => {
+        if (event) {
+            const url = `https://geocode-maps.yandex.ru/1.x/?apikey=595c5bb8-2e50-4f33-a6a2-64c1cee73869&geocode=${event.location_lon},${event.location_lat}&format=json`;
+            api.get<GeoCoderResponse>(url).then((value) => {
+                const loc =
+                    value.data.response.GeoObjectCollection.featureMember[0]
+                        .GeoObject.name;
+                setLocation(loc);
+            });
+        }
+    }, [event]);
 
     return (
         <div className='event-details-page'>
@@ -34,7 +50,7 @@ const EventDetailsPage = () => {
                         </p>
                     </div>
                     <p className='event-details__description'>
-                        <pre>{event.description}</pre>
+                        {event.description}
                     </p>
                     <div className='needs event-details__item'>
                         <h2 className='event-details__item-title'>Нужды:</h2>
@@ -51,9 +67,28 @@ const EventDetailsPage = () => {
                             })}
                         </ul>
                     </div>
+                    <YMaps>
+                        <Map
+                            defaultState={{
+                                center: [
+                                    event.location_lat,
+                                    event.location_lon,
+                                ],
+                                zoom: 16,
+                                type: 'yandex#map',
+                            }}
+                        >
+                            <Placemark
+                                geometry={[
+                                    event.location_lat,
+                                    event.location_lon,
+                                ]}
+                            />
+                        </Map>
+                    </YMaps>
                     <div className='event-details__item'>
                         <h2 className='event-details__item-title'>Место:</h2>
-                        <p>ул. Розы Люксембург 56а</p>
+                        <p>{location}</p>
                     </div>
                     <div className='event-details__item'>
                         <h2 className='event-details__item-title'>
@@ -65,9 +100,7 @@ const EventDetailsPage = () => {
                         <h2 className='event-details__item-title'>
                             Предполагаемый результат:
                         </h2>
-                        <p>
-                            <pre>{event.expected_result}</pre>
-                        </p>
+                        <p>{event.expected_result}</p>
                     </div>
                     <div className='event-details__item'>
                         <Button>Участвовать</Button>

@@ -48,7 +48,8 @@ const EventCreatePage = () => {
                     }
                 }}
             >
-                <div className='event-details__header event-item__header'>
+                <div className='needs event-details__item'>
+                    <h2 className='event-details__item-title'>Название</h2>
                     <input
                         className='event-details__title event-item__title'
                         value={title}
@@ -56,17 +57,20 @@ const EventCreatePage = () => {
                         onChange={(event) => {
                             setTitle(event.target.value);
                         }}
+                        placeholder='Название'
                     />
                 </div>
-                <p className='event-details__description'>
+                <div className='needs event-details__item'>
+                    <h2 className='event-details__item-title'>Описание</h2>
                     <textarea
                         value={description}
                         required
                         onChange={(event) => {
                             setDescription(event.target.value);
                         }}
+                        placeholder='Описание'
                     ></textarea>
-                </p>
+                </div>
                 <div className='needs event-details__item'>
                     <h2 className='event-details__item-title'>Нужды:</h2>
                     <input
@@ -84,6 +88,7 @@ const EventCreatePage = () => {
                                 setNeedEditor('');
                             }
                         }}
+                        placeholder='Нужды'
                     />
                     <ul className='needs-list'>
                         {needs.map((value, index) => {
@@ -121,6 +126,7 @@ const EventCreatePage = () => {
                         onChange={(event) => {
                             setExpectedResult(event.target.value);
                         }}
+                        placeholder='Предполагаемый итог'
                     ></textarea>
                 </div>
                 <div className='event-details__item'>

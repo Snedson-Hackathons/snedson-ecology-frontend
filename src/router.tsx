@@ -3,6 +3,7 @@ import MainLayout from './layouts/MainLayout';
 import EventPage from './pages/EventPage';
 import EventDetailsPage from './pages/EventDetailsPage';
 import EventCreatePage from './pages/EventCreatePage';
+import FeedPage from './pages/FeedPage';
 
 const router = createBrowserRouter([
     {
@@ -15,7 +16,7 @@ const router = createBrowserRouter([
             },
             {
                 path: '/feed',
-                element: <>Feed</>,
+                element: <FeedPage />,
             },
             {
                 path: '/events',

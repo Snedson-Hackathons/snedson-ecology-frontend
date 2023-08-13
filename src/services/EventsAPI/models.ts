@@ -6,8 +6,8 @@ export type EventModel = {
     description: string;
     scheduled_date: number;
     participants_count: number;
-    location_lat: null;
-    location_lon: null;
+    location_lat: number;
+    location_lon: number;
     expected_result: string;
     actual_result: null;
     needs: Need[];
